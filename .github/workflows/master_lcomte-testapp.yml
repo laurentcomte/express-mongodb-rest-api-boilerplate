@@ -21,6 +21,18 @@ jobs:
         with:
           node-version: '20.x'
 
+      - name: Check .env file existence
+        env:
+          FILE: .env
+        shell: bash
+        run: |
+          if [[ -f $FILE ]]; then
+            echo "$FILE exists!"
+          else
+            echo "$FILE does not exist!"
+            cp ".env.example" "$FILE"
+          fi
+          
       - name: npm install, build, and test
         run: |
           npm install
